@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'ChileAcesores') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -23,9 +23,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                @if(!request()->is('asesor/dashboard') && !request()->is('asesor/*'))
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'ChileAcesores') }}
+                    </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,10 +60,23 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <!-- Botón Panel de Control en el dropdown -->
+                                    @if(Auth::user()->tipo_usuario === 'asesor')
+                                        <a class="dropdown-item" href="{{ route('asesor.dashboard') }}">
+                                            <i class="fas fa-tachometer-alt me-1"></i>Panel de Control
+                                        </a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('solicitante.dashboard') }}">
+                                            <i class="fas fa-tachometer-alt me-1"></i>Panel de Control
+                                        </a>
+                                    @endif
+
+                                    <div class="dropdown-divider"></div>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Salir') }}
+                                        <i class="fas fa-sign-out-alt me-1"></i>{{ __('Salir') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

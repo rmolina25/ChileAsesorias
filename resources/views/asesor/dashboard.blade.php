@@ -294,8 +294,10 @@
                         <div class="card-body text-center">
                             @if(Auth::user()->foto_perfil)
                                 <img src="{{ asset('storage/' . Auth::user()->foto_perfil) }}" class="rounded-circle mb-3" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;">
+                                 {{ Auth::user()->foto_perfil }} -->
                             @else
                                 <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Foto de perfil">
+                               
                             @endif
                             <h4>{{ Auth::user()->name }}</h4>
                             <p class="text-muted">
